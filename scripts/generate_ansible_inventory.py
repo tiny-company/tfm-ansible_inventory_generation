@@ -10,10 +10,10 @@
 
 import os
 import yaml
-from dotenv import load_dotenv
 
 def generate_ansible_inventory(ansible_inventory_path: str, instance_ips: list, instance_ids: list):
     """
+    Generate an ansible inventory in yaml format
 
     Parameters:
     - ansible_inventory_path : the ansisble inventory file path to generate to
@@ -36,7 +36,7 @@ def generate_ansible_inventory(ansible_inventory_path: str, instance_ips: list, 
 
         for instance_id, instance_ip in zip(instance_ids, instance_ips):
             inventory['all']['hosts'][instance_id] = {
-                'ansible_host': instance_ip
+                'ansible_host': instance_ip.split("/")[0]
             }
 
         with open(ansible_inventory_path, 'w') as f:
